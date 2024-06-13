@@ -1,44 +1,56 @@
-import {createContext, useState, useEffect} from "react"
-import axios from "axios"
+import { useState } from 'react';
+import { createContext } from 'react';
+import authApi from '../apis/auth-api';
+import {
+  getAccessToken,
+  removeAccessToken,
+  setAccessToken
+} from '../utils/local-storage';
+import { useEffect } from 'react';
 
-const AuthContext = createContext()
+
+export const AuthContext = createContext();
+
+export default function AuthContextProvider({ children }) {
+  const [authUser, setAuthUser] = useState(null);
+  const [isAuthUserLoading, setIsAuthUserLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        if (getAccessToken()) {
+          const res = await authApi.getAuthUser();
+          setAuthUser(res.data.user);
+        }
+      } catch (err) {
+        console.log(err);
+      } finally {
+        setIsAuthUserLoading(false);
+      }
+    };
+
+    fetchUser();
+  }, []);
+
+  const login = async credentials => {
+    const res = await authApi.login(credentials); // ไปจัดการ utils สำหรับเก็บข้อมูล acees token
+    setAccessToken(res.data.token);
+    const resGetAuthUser = await authApi.getAuthUser();
+    setAuthUser(resGetAuthUser.data.user);
+  };
+
+  const logout = () => {
+    removeAccessToken();
+    setAuthUser(null);
+  };
 
 
-function AuthContextProvider(props) {
-	const [user, setUser] = useState(null)
-	const [loading, setLoading] = useState(true)
 
-	const logout = () => {
-		setUser(null)
-		localStorage.removeItem('token')
-	}
-	useEffect( ()=>{
-		const run = async () => {
-			try {
-				setLoading(true)
-				const token = localStorage.getItem('token')
-				if(!token) {
-					return
-				}
-				const rs = await axios.get('http://localhost:8889/auth/me', {
-					headers : { Authorization : `Bearer ${token}`}
-				})
-				setUser(rs.data.user)
-			} catch (err) {
-				console.log(err)
-			} finally {
-				setLoading(false)
-			}
-		}
-		run()
-	},[] ) 
-	
-	return (
-		<AuthContext.Provider value={ { user, setUser, logout, loading} }>
-			{props.children}
-		</AuthContext.Provider>
-	)
+  return (
+    <AuthContext.Provider
+      value={{ login, logout, authUser, isAuthUserLoading}}
+    >
+      {children}
+    </AuthContext.Provider>
+  );
 }
-
-export { AuthContextProvider}
-export default AuthContext

@@ -1,8 +1,13 @@
 import Joi from "joi";
 
 const loginSchema = Joi.object({
-  emailOrMobile: Joi.string().required(),
-  password: Joi.string().required(),
+  username: Joi.string().required().trim()
+  .messages({ "string.empty": "Username is require" }),
+  password: Joi.string().required().pattern(/^[0-9a-zA-Z]{6,}$/)
+  .messages({
+    "string.empty": "password is require",
+    "string.pattern.base": "password must be at least 6 characters",
+  }),
 });
 
 const validateLogin = (input) => {

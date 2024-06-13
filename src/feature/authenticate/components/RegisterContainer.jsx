@@ -11,7 +11,7 @@ return (
     <div className="text-center">
     <Button bg="green" onClick={() => setOpen(true)}>สร้างบันชีผู้ใช้</Button>
     </div>
-    <Modal title="ลงทะเบียน" open={open} onClose={() => setOpen(false)} ><RegisterForm />  </Modal>
+    <Modal title="ลงทะเบียน" open={open} onClose={() => {setOpen(false)}} ><RegisterForm onSuccess={() => setOpen(false)} />  </Modal>
     </>
 )
 }

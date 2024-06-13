@@ -1,15 +1,143 @@
-import Navbar from "../feature/authenticate/components/navBar";
 import RegisterForm from "../feature/authenticate/components/registerForm";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import useAuth from "../hook/useAuth";
-import LoginPage from "../pages/loginPage";
+import { lazy } from "react";
+import HomePage from "../pages/homePage";
+import KidsProgram from "../pages/kidsProgram";
 
-const userRouter = createBrowserRouter([
+const Loginpage = lazy(() => import("../pages/loginPage"));
+const Header = lazy(() => import("../layout/Header"));
+const Maincontainer = lazy(() => import("../layout/mainContainer"));
+
+// const userRouter = createBrowserRouter([
+//   {
+//     path: "/",
+//     element: <HomePage />,
+//   },
+
+//   {
+//     path: "/kidsprogram",
+//     element: (
+//       <>
+//         <HomePage />
+//         <h1>Kidsprogram</h1>
+//       </>
+//     ),
+//   },
+//   {
+//     path: "/album",
+//     element: (
+//       <>
+//         <HomePage />
+//         <h1>Activity's Album</h1>
+//       </>
+//     ),
+//   },
+//   {
+//     path: "/trytodo",
+//     element: (
+//       <>
+//         <HomePage />
+//         <h1>ลองทำดู</h1>
+//       </>
+//     ),
+//   },
+//   {
+//     path: "/news",
+//     element: (
+//       <>
+//         <HomePage />
+//         <h1>ข่าวสาร และ บทความ</h1>
+//       </>
+//     ),
+//   },
+// ]);
+
+// const guestRouter = createBrowserRouter([
+//   {
+//     path: "/",
+//     element: <HomePage />,
+//   },
+//   {
+//     path: "/login",
+//     element: (
+//       <>
+//         <HomePage />
+//         <LoginPage />
+//       </>
+//     ),
+//   },
+//   {
+//     path: "/register",
+//     element: (
+//       <>
+//         <HomePage />
+//         <RegisterForm />
+//       </>
+//     ),
+//   },
+
+//   {
+//     path: "/album",
+//     element: (
+//       <>
+//         <HomePage />
+//         <h1>Activity's Album</h1>
+//       </>
+//     ),
+//   },
+//   {
+//     path: "/news",
+//     element: (
+//       <>
+//         <HomePage />
+//         <h1>ข่าวสาร และ บทความ</h1>
+//       </>
+//     ),
+//   },
+// ]);
+
+// เอา maincontainer มาใส่แทน homepage
+const guestRouter = createBrowserRouter([
   {
     path: "/",
+    element: <><Maincontainer /> <HomePage />
+</>
+  },
+  {
+    path: "/login",
     element: (
       <>
-        <Navbar />
+        <Header /><Loginpage />
+      </>
+    ),
+  },
+  {
+    path: "/register",
+    element: <RegisterForm />
+  },
+
+  {
+    path: "/album",
+    element: (
+      <>
+        <Maincontainer /><h1>Activity's Album</h1>
+      </>
+    ),
+  },
+  {
+    path: "/news",
+    element: (
+      <>
+        <Maincontainer /><h1>ข่าวสาร และ บทความ</h1>
+      </>
+    ),
+  },
+  {
+    path: "/trytodo",
+    element: (
+      <>
+        <Maincontainer /><h1>ลองทำดู</h1>
       </>
     ),
   },
@@ -18,90 +146,17 @@ const userRouter = createBrowserRouter([
     path: "/kidsprogram",
     element: (
       <>
-        <Navbar />
-        <h1>Kidsprogram</h1>
-      </>
-    ),
-  },
-  {
-    path: "/album",
-    element: (
-      <>
-        <Navbar />
-        <h1>Activity's Album</h1>
-      </>
-    ),
-  },
-  {
-    path: "/trytodo",
-    element: (
-      <>
-        <Navbar />
-        <h1>ลองทำดู</h1>
-      </>
-    ),
-  },
-  {
-    path: "/news",
-    element: (
-      <>
-        <Navbar />
-        <h1>ข่าวสาร และ บทความ</h1>
-      </>
-    ),
-  },
-]);
-
-const guestRouter = createBrowserRouter([
-  {
-    path: "/",
-    element: (
-      <>
-        <Navbar />
-      </>
-    ),
-  },
-  {
-    path: "/login",
-    element: (
-      <>
-        <Navbar />
-        <LoginPage />
-      </>
-    ),
-  },
-  {
-    path: "/register",
-    element: (
-      <>
-        <Navbar />
-        <RegisterForm />
-      </>
-    ),
-  },
-
-  {
-    path: "/album",
-    element: (
-      <>
-        <Navbar />
-        <h1>Activity's Album</h1>
-      </>
-    ),
-  },
-  {
-    path: "/news",
-    element: (
-      <>
-        <Navbar />
-        <h1>ข่าวสาร และ บทความ</h1>
+        <Maincontainer />
+        <KidsProgram />
       </>
     ),
   },
 ]);
 
 export default function AppRouter() {
-  const user = useAuth();
-  const finalRouter = user?.id ? userRouter : guestRouter;
-  return <RouterProvider router={finalRouter} />;
+  // const user = useAuth();
+  // const finalRouter = user?.id ? userRouter : guestRouter;
+  return <RouterProvider router={guestRouter} />;
 }
+
+//! ถ้า set page เสร็จ ก็มา log program

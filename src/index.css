@@ -4,7 +4,23 @@
 
 
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
+  font-family: "Itim", cursive;
   font-weight: 400;
+  font-style: normal;
+}
+
+#root {
+  font-family: "Itim", cursive;
+}
+
+@layer utilities {
+  .pause{
+    animate-play-state: pause
+  }
+}
+
+.itim-regular {
+  font-family: "Itim", cursive;
+  font-weight: 400;
+  font-style: normal;
 }

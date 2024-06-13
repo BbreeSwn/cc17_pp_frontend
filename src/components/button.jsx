@@ -3,6 +3,7 @@ const bgMap = {
   green: "bg-green-500 hover:bg-green-400",
   gray: "bg-gray-200 hover:bg-gray-300",
   yellow: "bg-yellow-500 hover:bg-yellow-300",
+  white: "bg-white hover:bg-gray-200",
 };
 
 const colorMap = {
