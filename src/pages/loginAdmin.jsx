@@ -1,8 +1,8 @@
-import Input from "../../../components/input";
-import Button from "../../../components/button";
+import Input from "../components/input";
+import Button from "../components/button";
 import { useState } from "react";
-import validateLogin from "../validate-login/validate-login";
-import useAuth from "../../../hook/useAuth";
+import validateLogin from "../feature/authenticate/validate-login/validate-login";
+import useAuth from "../hook/useAuth";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { AxiosError } from "axios";
@@ -17,11 +17,11 @@ const initialInputError = {
   password: "",
 };
 
-export default function LoginForm() {
+export default function AdminLoginForm() {
   const [input, setInput] = useState(initialInput);
   const [inputError, setInputError] = useState(initialInputError);
 
-  const { login , authUser } = useAuth();
+  const { loginAdmin } = useAuth();
   const navigate = useNavigate();
 
   const handleChangeInput = (e) => {
@@ -37,23 +37,26 @@ export default function LoginForm() {
       }
       console.log(input)
       setInputError(initialInputError);
-      await login(input);
+      await loginAdmin(input);
       toast.success("login success");
       navigate('/');
     } catch (err) {
+      console.log(err)
       if (err instanceof AxiosError) {
+        setInputError({...inputError,[err.response.data.field]:[err.response.data.msg]})
         const message =
-          err.response.status === 401 ? "Invalid" : "Internal server error";
+          err.response.status === 400 ? "Invalid" : "Internal server error";
         return toast.error(message);
       }
     }
   };
+  console.log(inputError)
 
   return (
     <div>
       <form onSubmit={handleSubmit}>
-        <h1 className="text-4xl my-10 text-center ">Welcome to webkids</h1>
-        <div className="grid gap-4 ">
+        <div className="grid gap-4 bg-gradient-to-b from-orange-300 to-yellow-200 p-4 rounded-lg max-w-sm mx-auto shadow-lg mt-10 ">
+        <h1 className="text-4xl  text-center ">Hello Admin</h1>
           <div>
             <Input
               placeholder="Username"

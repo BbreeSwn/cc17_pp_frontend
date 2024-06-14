@@ -3,7 +3,7 @@ import pic2 from "../statics/head-body/line.png";
 import pic3 from "../statics/head-body/07.png";
 import pic4 from "../statics/head-body/kids.png";
 
-export default function ProgramCard({ src1, src2, src3, src4 }) {
+export default function ProgramCard({ programs}) {
   return (
     <>
       <div
@@ -24,53 +24,18 @@ export default function ProgramCard({ src1, src2, src3, src4 }) {
         <img src={pic4} className="max-w-80" />
       </div>
 
-      <div
-        name="program-card"
-        className="grid grid-cols-3 place-items-center mt-10"
-      >
-
-        <div className="card card-compact w-96 bg-base-100 shadow-xl mt-10">
-          <figure>
-            <img src={src1} alt="card1" />
-          </figure>
-          <div className="card-body">
-            <h2 className="card-title">TITLE</h2>
-            <p>If a dog chews shoes whose shoes does he choose?</p>
+      <div name="program-card" className="grid grid-cols-3 place-items-center mt-10">
+        {programs.map((program, index) => (
+          <div key={index} className="card card-compact w-96 bg-base-100 shadow-xl mt-10">
+            <figure>
+              <img src={program.src} alt={`card${index + 1}`} />
+            </figure>
+            <div className="card-body">
+              <h2 className="card-title">{program.title}</h2>
+              <p>{program.description}</p>
+            </div>
           </div>
-        </div>
-
-
-        <div className="card card-compact w-96 bg-base-100 shadow-xl mt-10">
-          <figure>
-            <img src={src2} alt="card2" />
-          </figure>
-          <div className="card-body">
-            <h2 className="card-title">Title</h2>
-            <p>If a dog chews shoes whose shoes does he choose?</p>
-          </div>
-        </div>
-
-
-        <div className="card card-compact w-96 bg-base-100 shadow-xl mt-10">
-          <figure>
-            <img src={src3} alt="card3" />
-          </figure>
-          <div className="card-body">
-            <h2 className="card-title">Title</h2>
-            <p>If a dog chews shoes whose shoes does he choose?</p>
-          </div>
-        </div>
-
-
-        <div className="card card-compact w-96 bg-base-100 shadow-xl mt-10 mb-10">
-          <figure>
-            <img src={src4} alt="card4" />
-          </figure>
-          <div className="card-body">
-            <h2 className="card-title">Title</h2>
-            <p>If a dog chews shoes whose shoes does he choose?</p>
-          </div>
-        </div>
+        ))}
       </div>
     </>
   );

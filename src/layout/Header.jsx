@@ -1,5 +1,4 @@
 import webkidlogo from "../statics/menu/webkid-logo.png";
-import { Link } from "react-router-dom";
 import Menu from "./menu";
 import Dropdown from "./dropdown";
 

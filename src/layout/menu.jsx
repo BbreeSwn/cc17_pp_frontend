@@ -12,7 +12,7 @@ return(
       <Link to="/" >
       <div>
       <img src={home} alt="home" className="w-10 h-10  flex justify-center items-center m-auto" />
-         <a className="text-white text-lg ">หน้าหลัก</a>  
+         <p className="text-white text-lg ">หน้าหลัก</p>  
          </div>
       </Link>
     </div>
@@ -20,7 +20,7 @@ return(
       <Link to="/kidsprogram">
       <div>
       <img src={kidsprogram} alt="kidsprogram" className="w-10 h-10  flex justify-center items-center m-auto" />
-        <a className="text-white text-lg">Kids program</a>
+        <p className="text-white text-lg">Kids program</p>
         </div>
       </Link>
     </div>
@@ -28,7 +28,7 @@ return(
       <Link to="/album">
       <div>
       <img src={activity} alt="activity" className="w-10 h-10 flex justify-center items-center m-auto" />
-        <a className="text-white text-lg">Activity's Album</a>
+        <p className="text-white text-lg">Activity's Album</p>
         </div>
       </Link>
     </div>
@@ -36,7 +36,7 @@ return(
       <Link to="/trytodo">
       <div>
       <img src={trytodo} alt="trytodo" className="w-10 h-10 flex justify-center items-center m-auto" />
-        <a className="text-white text-lg">ลองทำดู</a>
+        <p className="text-white text-lg">ลองทำดู</p>
         </div>
       </Link>
     </div>
@@ -44,7 +44,7 @@ return(
       <Link to="/news">
       <div>
       <img src={news} alt="news" className="w-10 h-10  flex justify-center items-center m-auto" />
-        <a className="text-white text-lg">ข่าวสาร และ บทความ</a>
+        <p className="text-white text-lg">ข่าวสาร และ บทความ</p>
         </div>
       </Link>
     </div>

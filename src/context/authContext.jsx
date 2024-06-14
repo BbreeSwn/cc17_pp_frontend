@@ -13,6 +13,7 @@ export const AuthContext = createContext();
 
 export default function AuthContextProvider({ children }) {
   const [authUser, setAuthUser] = useState(null);
+  const [authAdmin , setAuthAdmin] = useState(null)
   const [isAuthUserLoading, setIsAuthUserLoading] = useState(true);
 
   useEffect(() => {
@@ -39,6 +40,13 @@ export default function AuthContextProvider({ children }) {
     setAuthUser(resGetAuthUser.data.user);
   };
 
+  const loginAdmin = async credentials => {
+    const res = await authApi.loginAdmin(credentials); // ไปจัดการ utils สำหรับเก็บข้อมูล acees token
+    setAccessToken(res.data.token);
+    const resGetAuthUser = await authApi.getAuthUser();
+    setAuthAdmin(resGetAuthUser.data.user);
+  };
+
   const logout = () => {
     removeAccessToken();
     setAuthUser(null);
@@ -48,7 +56,7 @@ export default function AuthContextProvider({ children }) {
 
   return (
     <AuthContext.Provider
-      value={{ login, logout, authUser, isAuthUserLoading}}
+      value={{ login, logout, authUser, isAuthUserLoading , loginAdmin ,authAdmin}}
     >
       {children}
     </AuthContext.Provider>
