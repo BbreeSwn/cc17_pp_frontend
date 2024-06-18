@@ -29,20 +29,41 @@ export default function AdminLoginForm() {
   };
 
   const handleSubmit = async (e) => {
+    // try {
+    //   e.preventDefault();
+    //   const error = validateLogin(input);
+    //   if (error) {
+    //     return setInputError(error);
+    //   }
+    //   console.log(input)
+    //   setInputError(initialInputError);
+    //   await loginAdmin(input);
+    //   toast.success("login success");
+    //   navigate('/');
+    // } catch (err) {
+    //   console.log(err)
+    //   if (err instanceof AxiosError) {
+    //     setInputError({...inputError,[err.response.data.field]:[err.response.data.msg]})
+    //     const message =
+    //       err.response.status === 400 ? "Invalid" : "Internal server error";
+    //     return toast.error(message);
+    //   }
+    // }
     try {
       e.preventDefault();
+      console.log("login admin -- ")
       const error = validateLogin(input);
       if (error) {
         return setInputError(error);
       }
-      console.log(input)
+      // console.log(input)
       setInputError(initialInputError);
       await loginAdmin(input);
       toast.success("login success");
-      navigate('/');
+      // navigate('/');
     } catch (err) {
-      console.log(err)
       if (err instanceof AxiosError) {
+        console.log("adminn errrr")
         setInputError({...inputError,[err.response.data.field]:[err.response.data.msg]})
         const message =
           err.response.status === 400 ? "Invalid" : "Internal server error";
@@ -50,7 +71,7 @@ export default function AdminLoginForm() {
       }
     }
   };
-  console.log(inputError)
+  // console.log(inputError)
 
   return (
     <div>

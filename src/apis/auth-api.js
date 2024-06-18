@@ -1,5 +1,5 @@
 // import axios from "../config/axios.js";
-// import { getAccessToken } from "../utils/local-storage";
+import { getAdminAccessToken} from "../utils/admin-storage";
 
 // const authApi = {};
 
@@ -15,6 +15,7 @@
 import axios from "../config/axios"
 
 const authApi = {};
+const token = getAdminAccessToken()
 
 authApi.register = body => axios.post('/auth/register' , body)
 authApi.login= body => axios.post('/auth/login' , body)
@@ -22,5 +23,8 @@ authApi.login= body => axios.post('/auth/login' , body)
 authApi.loginAdmin = body => axios.post('/auth/login-admin' , body)
 
 authApi.getAuthUser = () => axios.get('/auth/me')
+authApi.getAuthAdmin = () => axios.get('/auth/admin',{ headers: {
+    'Authorization': `Bearer ${token}`
+}})
 
 export default authApi;

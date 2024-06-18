@@ -10,6 +10,7 @@ import pc1 from "../statics/cardItem/clip1.jpg"
 import pc2 from "../statics/cardItem/clip2.jpg"
 import pc3 from "../statics/cardItem/Ep9-Keep.jpeg"
 import pc4 from "../statics/cardItem/กินกับลูก.jpg"
+import ProgramContainer from "../feature/authenticate/components/ProgramContainer"
 
 export default function HomePage() {
   const programs = [
@@ -28,7 +29,12 @@ export default function HomePage() {
     src4={content4}
     src5={content5}
     />
-<ProgramCard programs={programs} />
+<ProgramCard />
+<div  className="grid grid-cols-3 place-items-center mt-10">
+            {programs.map((program, index) => (
+        <ProgramContainer key={index} program={program} />
+      ))}
+      </div>
 </div>
   );
 }

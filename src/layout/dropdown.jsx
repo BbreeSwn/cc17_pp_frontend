@@ -18,11 +18,13 @@ const {authUser , logout , authAdmin} = useAuth();
     navigate('/login')
   toast.success('Logout successfuly')
   };
-  console.log(authUser)
+  // console.log(authUser)
+  console.log("test in dropdown",authAdmin)
+  // console.log("*************************")
   return (
     <div className="dropdown dropdown-end flex justify-between items-center">
       <div>
-         Hello, {authUser?.userName || authAdmin?.userName}
+         Hello, {authUser?.userName || authAdmin?.firstName}
          
           </div>
           
@@ -47,7 +49,7 @@ const {authUser , logout , authAdmin} = useAuth();
         <li>
           <div>
           <Link to="/login"> 
-            {authUser ? (<Button onClick={handleClickLogout} bg="white" color="black" width='20'>Log out</Button>) : (<Button bg="white" color="black" width='20'>Login / Register</Button>) }
+            {authUser || authAdmin? (<Button onClick={handleClickLogout} bg="white" color="black" width='20'>Log out</Button>) : (<Button bg="white" color="black" width='20'>Login / Register</Button>) }
           </Link>
           </div>
         </li>

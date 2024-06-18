@@ -1,23 +1,33 @@
 import ImageSlide from "../layout/imgSlide"
 import ProgramCard from "../layout/programCard"
+import ProgramContainer from "../feature/authenticate/components/ProgramContainer"
 import clip1 from "../statics/kidsProgram/clip1.jpg"
 import clip2 from "../statics/kidsProgram/clip2.jpg"
 import clip3 from "../statics/kidsProgram/clip3.jpg"
 import clip4 from "../statics/kidsProgram/clip4.jpeg"
 
-import art from "../statics/coverImage/art.jpg"
-import english from "../statics/coverImage/english.jpg"
-import eateat from "../statics/coverImage/eateat.jpg"
-import natural from "../statics/coverImage/natural.jpg"
+import Art from "../statics/coverImage/art.jpg"
+import English from "../statics/coverImage/english.jpg"
+import Eateat from "../statics/coverImage/eateat.jpg"
+import Natural from "../statics/coverImage/natural.jpg"
+import useAuth from "../hook/useAuth"
+import { useEffect } from "react"
 
 
 export default function KidsProgram() {
+  const { loginAdmin} = useAuth();
+
+ 
   const programs = [
-    { src: art, title: "Art", description: "Description for Art program" },
-    { src: english, title: "English", description: "Description for English program" },
-    { src: eateat, title: "EatEat", description: "Description for EatEat program" },
-    { src: natural, title: "Natural", description: "Description for Natural program" }
+    { src: Art, title: "Art", description: "Description for Art program" },
+    { src: English, title: "English", description: "Description for English program" },
+    { src: Eateat, title: "EatEat", description: "Description for EatEat program" },
+    { src: Natural, title: "Natural", description: "Description for Natural program" }
   ];
+
+  useEffect(() => {
+    loginAdmin()
+  },[])
 
   return (
     <div>
@@ -27,7 +37,14 @@ export default function KidsProgram() {
         src4={clip3}
         src5={clip4}
       />
-      <ProgramCard programs={programs} />
+      <ProgramCard />
+      <div  className="grid grid-cols-3 place-items-center mt-10">
+            {programs.map((program, index) => (
+        <ProgramContainer key={index} program={program}
+        />
+      ))}
+      </div>
     </div>
+    
   );
 }
