@@ -60,7 +60,7 @@ export default function AdminLoginForm() {
       setInputError(initialInputError);
       await loginAdmin(input);
       toast.success("login success");
-      // navigate('/');
+      navigate('/');
     } catch (err) {
       if (err instanceof AxiosError) {
         console.log("adminn errrr")

@@ -1,5 +1,6 @@
 import axios from "axios";
 import { getAccessToken, removeAccessToken } from "../utils/local-storage";
+import { getAdminAccessToken,removeAdminAccessToken } from "../utils/admin-storage";
 
 axios.defaults.baseURL = import.meta.env.VITE_API_URL; // config base url
 
@@ -8,8 +9,12 @@ axios.defaults.baseURL = import.meta.env.VITE_API_URL; // config base url
 axios.interceptors.request.use(
   (config) => {
     const accessToken = getAccessToken();
-    if (accessToken) {
+    const adminAccessToken = getAdminAccessToken();
+    if (accessToken ) {
       config.headers.Authorization = `Bearer ${accessToken}`;  // modify ค่า header
+    }
+    else if (adminAccessToken ) {
+      config.headers.Authorization = `Bearer ${adminAccessToken}`;  // modify ค่า header
     }
     return config;
   },
@@ -20,8 +25,16 @@ axios.interceptors.request.use(
 axios.interceptors.response.use(
   (value) => Promise.resolve(value),
   (error) => {
-    if (error.response.status === 401) {
+    const accessToken = getAccessToken();
+    const adminAccessToken = getAdminAccessToken()
+    if (error.response.status === 401 && accessToken) {
       removeAccessToken();
+      window.location.assign("/login");
+      return
+    }
+    if (error.response.status === 401 && adminAccessToken) {
+   
+      removeAdminAccessToken();
       window.location.assign("/login");
       return
     }

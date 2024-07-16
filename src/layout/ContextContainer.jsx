@@ -1,6 +1,8 @@
-import contentImage from "../statics/homePageSlige/content1.jpg"
+
+
 
 export default function ContextContainer({src , headTitle,subTitle,newsContent}) {
+
   return (
       <div className="flex justify-center flex-col gap-10 items-center h-auto">
         <div className="flex w-3/5 mt-10 ">

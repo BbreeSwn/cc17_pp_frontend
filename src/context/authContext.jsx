@@ -57,11 +57,12 @@ export default function AuthContextProvider({ children }) {
 
   const loginAdmin = async credentials => {
     const res = await authApi.loginAdmin(credentials); // ไปจัดการ utils สำหรับเก็บข้อมูล acees token
+    console.log(res.data.token)
     setAdminAccessToken(res.data.token);
     
     const resGetAuthAdmin = await authApi.getAuthAdmin();
     
-    setAdminAccessToken(resGetAuthAdmin.data.user);
+    setAuthAdmin(resGetAuthAdmin.data.user);
   };
 
   

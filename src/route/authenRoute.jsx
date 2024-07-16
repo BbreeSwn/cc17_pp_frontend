@@ -12,8 +12,11 @@ import TryToDo from "../pages/tryTodo";
 import NewsContent from "../pages/NewsContent";
 import ContextContainer from "../layout/ContextContainer";
 
+
 const Loginpage = lazy(() => import("../pages/loginPage"));
 const Maincontainer = lazy(() => import("../layout/mainContainer"));
+const KidsProgramManagePage = lazy(() => import("../pages/KidsProgramManagePage"))
+const NewsManagePage = lazy(() => import("../pages/NewsManagePage"))
 
 const router = createBrowserRouter([
   {
@@ -49,7 +52,9 @@ const router = createBrowserRouter([
       {path: "english" , element: <h1>english</h1>},
       {path: "art" , element: <h1>art</h1>},
       {path: "eateat" , element: <h1>cooking</h1>},
-      {path: "natural" , element: <h1>cnatural</h1>},
+      {path: "natural" , element: <h1>natural</h1>},
+      {path: "createKidsProgram" , element: <KidsProgramManagePage />},
+      
     ]
   },
   {
@@ -80,6 +85,7 @@ const router = createBrowserRouter([
     ),
     children: [
       {path:"" , element: <NewsContent />},
+      {path:"creatNewsContent" , element: <NewsManagePage />},
       {path:":contentId" , element: <ContextContainer/> },
     ]
   },
@@ -90,6 +96,7 @@ const router = createBrowserRouter([
 <RedirectIfAdminLogin>
         <Maincontainer />
         <AdminLoginForm />
+        
         </RedirectIfAdminLogin>
 
       </>
