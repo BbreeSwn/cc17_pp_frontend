@@ -34,7 +34,7 @@ export default function NewsManagePage() {
           formData.append(key, value);
         }
       }
-      await contentApi.create(formData);
+      await contentApi.createNews(formData);
       console.log(...formData);
       toast.success("Created project successfully");
       navigate(`/news`);

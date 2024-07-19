@@ -10,34 +10,38 @@ import contentApi from "../apis/contentApi";
 const initialInput = {
   title: "",
   description: "",
-  categories_id: "", // เพิ่ม categories_id
 };
 
-export default function KidsProgramManagePage() {
+export default function NewsManagePage() {
   const [input, setInput] = useState(initialInput);
   const [file, setFile] = useState(null);
   const navigate = useNavigate();
   const fileUpload = useRef();
 
-  const handleInputChange = (e) => setInput({ ...input, [e.target.name]: e.target.value });
+  const handleInputChange = (e) =>{
+    // console.log({[e.target.name]: e.target.value})
+    setInput({ ...input, [e.target.name]: e.target.value });
+  }
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (file) {
+      console.log("****", input);
       const formData = new FormData();
       formData.append("cover_image", file);
-      formData.append("title", input.title);
-      formData.append("description", input.description);
-      formData.append("categories_id", input.categories_id); // เพิ่ม categories_id
-
-      try {
-        await contentApi.create(formData);
-        toast.success("Created project successfully");
-        navigate(`/kidsprogram`);
-      } catch (error) {
-        toast.error("Failed to create project");
-        console.error(error);
+      // formData.append("title", input.title);
+      // formData.append("description", input.description);
+      // formData.append("videos", input.description);
+      for (const [key, value] of Object.entries(input)) {
+        if (value) {
+          formData.append(key, value);
+        }
       }
+      await contentApi.createKidsProgram(formData);
+      console.log(...formData);
+      toast.success("Created project successfully");
+      navigate(`/kidsprogram`);
     } else {
       toast.error("Please upload your product image");
     }
@@ -45,7 +49,7 @@ export default function KidsProgramManagePage() {
 
   return (
     <form onSubmit={handleSubmit} className="flex justify-center pt-8 w-full">
-      <div className="flex items-center">
+      <div className=" flex items-center">
         <div className="flex flex-row justify-center items-center gap-8 w-full p-2 h-full rounded-xl shadow-[0_3px_10px_rgb(0,0,0,0.2)]">
           {/* Image */}
           <input
@@ -85,38 +89,36 @@ export default function KidsProgramManagePage() {
           )}
           {/* detail */}
           <div className="w-3/4 flex justify-center items-center">
-            <label className="form-control w-full gap-7">
+            <label
+              className="form-control w-full gap-7
+            "
+            >
               <div className="label">
                 <span className="text-gray-500 font-semibold text-5xl sm:text-base md:text-lg">
-                  Create Kidprogram
+                  Create News
                 </span>
               </div>
               <input
                 placeholder="Title"
                 name="title"
-                onChange={handleInputChange}
+                onChange={(e) => handleInputChange(e)}
                 className="px-4 py-1 w-[80%] border border-1 rounded-md"
               />
               <textarea
-                placeholder="Description"
+                placeholder="description"
                 name="description"
                 onChange={handleInputChange}
                 className="px-4 py-1 w-[80%] h-32 border border-1 rounded-md"
               />
-              <select
-                id="categories_id"
-                name="categories_id"
+              <input
+                placeholder="Video"
+                name="video"
                 onChange={handleInputChange}
                 className="px-4 py-1 w-[80%] border border-1 rounded-md"
-              >
-                <option value="2">English for kids</option>
-                <option value="4">Japanese for kids</option>
-                <option value="5">Cooking for kids</option>
-                <option value="6">A class natural</option>
-                <option value="8">Art for kids</option>
-              </select>
+              />
+
               <Button width="20" bg="yellow">
-                Save
+                save
               </Button>
             </label>
           </div>
@@ -125,3 +127,7 @@ export default function KidsProgramManagePage() {
     </form>
   );
 }
+
+
+
+

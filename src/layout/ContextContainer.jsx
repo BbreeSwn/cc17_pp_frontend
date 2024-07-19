@@ -1,22 +1,21 @@
+import { useContext } from "react";
+import Editor from "../components/EditorComponent/Editor";
+import ContentLayout from "../components/EditorComponent/contentLayout";
+
+import { AuthContext } from "../context/authContext";
 
 
 
-export default function ContextContainer({src , headTitle,subTitle,newsContent}) {
+
+export default function ContextContainer({src , headTitle,subTitle, content}) {
+  const {authAdmin} = useContext(AuthContext);
+
+  
 
   return (
-      <div className="flex justify-center flex-col gap-10 items-center h-auto">
-        <div className="flex w-3/5 mt-10 ">
-            <img src={src} />
-        </div>
-        <div name="Head-title">
-          <h1>{headTitle}</h1>
-        </div>
-        <div name="sub-title">
-            <h3>{subTitle}</h3>
-        </div>
-        <div name="news-content">
-            <p>{newsContent}</p>
-        </div>
+      <div className="flex justify-center flex-col items-center h-auto w-2/4 m-auto mt-5 rounded-md shadow-lg">
+       {authAdmin ? <Editor /> : <ContentLayout />}
+      
       </div>
   );
 }

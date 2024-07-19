@@ -1,46 +1,51 @@
-import ImageSlide from "../layout/imgSlide"
-import ProgramCard from "../layout/programCard"
-import content1 from "../statics/homePageSlige/content1.jpg"
-import content2 from "../statics/kidsProgram/clip1.jpg"
-import content3 from "../statics/cardItem/Ep9-Keep.jpeg"
-import content4 from "../statics/homePageSlige/content4.jpg"
-import content5 from "../statics/homePageSlige/content5.png"
-
-import pc1 from "../statics/cardItem/clip1.jpg"
-import pc2 from "../statics/cardItem/clip2.jpg"
-import pc3 from "../statics/cardItem/Ep9-Keep.jpeg"
-import pc4 from "../statics/cardItem/กินกับลูก.jpg"
-import ProgramContainer from "../feature/authenticate/components/ProgramContainer"
+import ImageSlide from "../layout/imgSlide";
+import ProgramCard from "../layout/programCard";
+import ProgramContainer from "../feature/authenticate/components/ProgramContainer";
+import content1 from "../statics/homePageSlige/content1.jpg";
+import content2 from "../statics/kidsProgram/clip1.jpg";
+import content3 from "../statics/cardItem/Ep9-Keep.jpeg";
+import content4 from "../statics/homePageSlige/content4.jpg";
+import content5 from "../statics/homePageSlige/content5.png";
+import axios from "../config/axios";
+import { useEffect, useState } from "react";
+import { getAdminAccessToken } from "../utils/admin-storage";
 
 export default function HomePage() {
-  const programs = [
-    {src: pc1, title:"clip1", description:"aLWRjghoa;hg:OteihebtNEYRjmn" },
-    {src: pc2, title:"clip2", description:"aLWRjghoa;hg:OteihebtNEYRjmn" },
-    {src: pc3, title:"clip3", description:"aLWRjghoa;hg:OteihebtNEYRjmn" },
-    {src: pc4, title:"clip4", description:"aLWRjghoa;hg:OteihebtNEYRjmn" },
-  ]
+  const [programs, setPrograms] = useState([]);
+  const token = getAdminAccessToken();
+
+  useEffect(() => {
+    const fetchPrograms = async () => {
+      try {
+        const response = await axios.get(`/admin/content/${id}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        setPrograms(response.data.result);
+      } catch (error) {
+        console.error("Error fetching programs:", error);
+      }
+    };
+
+    fetchPrograms();
+  }, [token]);
 
   return (
-<div>
-    <ImageSlide
-    src1={content1}
-    src2={content2}
-    src3={content3}
-    src4={content4}
-    src5={content5}
-    />
-<ProgramCard />
-<div  className="grid grid-cols-3 place-items-center mt-10">
-            {programs.map((program, index) => (
-        <ProgramContainer key={index} program={program} />
-      ))}
+    <div>
+      <ImageSlide
+        src1={content1}
+        src2={content2}
+        src3={content3}
+        src4={content4}
+        src5={content5}
+      />
+      <ProgramCard />
+      <div className="grid grid-cols-3 place-items-center mt-10">
+        {programs.map((program) => (
+          <ProgramContainer key={program.id} program={program} />
+        ))}
       </div>
-</div>
+    </div>
   );
 }
-
-{/* <div><img src={content1} className="w-[640px] rounded-2xl shadow-md" /></div>
-<div><img src={content2} className="w-[640px] rounded-2xl shadow-md" /></div>
-<div><img src={content3} className="w-[640px] rounded-2xl shadow-md" /></div>
-<div><img src={content4} className="w-[640px] rounded-2xl shadow-md" /></div>
-<div><img src={content5} className="w-[640px] rounded-2xl shadow-md" /></div> */}

@@ -11,6 +11,7 @@ import ActivityAlbum from "../pages/activity";
 import TryToDo from "../pages/tryTodo";
 import NewsContent from "../pages/NewsContent";
 import ContextContainer from "../layout/ContextContainer";
+import KidsProgramById from "../pages/kidsProgramById";
 
 
 const Loginpage = lazy(() => import("../pages/loginPage"));
@@ -54,6 +55,7 @@ const router = createBrowserRouter([
       {path: "eateat" , element: <h1>cooking</h1>},
       {path: "natural" , element: <h1>natural</h1>},
       {path: "createKidsProgram" , element: <KidsProgramManagePage />},
+      {path: ":contentId" , element: <KidsProgramById/>},
       
     ]
   },
